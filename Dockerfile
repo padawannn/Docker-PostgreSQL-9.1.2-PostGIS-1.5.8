@@ -5,7 +5,7 @@ MAINTAINER Juan Pedro Perez "jp.alcantara@geographica.gs"
 
 # This is a clever instruction, for, if changed, will force the build command to
 # skip cache and recreate the whole image from scratch
-ENV REFRESHED_AT 2014-12-02_17:34
+ENV REFRESHED_AT 2014-12-03_11:43
 ENV POSTGRES_PASSWD postgres
 
 # Build PostgreSQL 9.1.2
