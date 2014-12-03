@@ -75,7 +75,7 @@ data storage:
 in this case, __-i__ and __-t__ are used so the container and the database can
 be stoped with Ctl-C without __docker kill__ (I may be wrong, but I think this
 is a cleaner way to exit the container, since the data storage will be properly
-shutted down).
+shut down).
 
 This container will be permanent and we can start and attach to it in the usual
 way:
