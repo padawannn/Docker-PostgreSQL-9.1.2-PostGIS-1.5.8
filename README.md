@@ -37,26 +37,22 @@ data storage in the host and not in the container:
 
     mkdir /whatever/postgresql-9.1.2-postgis-1.5.8-data
 
-    chown postgres:malkab /whatever/postgresql-9.1.2-postgis-1.5.8-data
-
-    chmod 700 /whatever/postgresql-9.1.2-postgis-1.5.8-data
-
 Then create a temporary container to create the data storage. In the container,
 /data will be always the data storage:
 
     docker run --rm -v /whatever/postgresql-9.1.2-postgis-1.5.8-data:/data/ -t
     -i geographica/postgresql-9.1.2-postgis-1.5.8 /bin/bash
 
-    initdb --encoding=UTF-8 --locale=es_ES.UTF-8 --lc-collate=es_ES.UTF-8
-    --lc-monetary=es_ES.UTF-8 --lc-numeric=es_ES.UTF-8 --lc-time=es_ES.UTF-8
-	-D /data
+    chown postgres:postgres /data
 
-(By the way, since I have a host-installed PostgreSQL of another version, I
-can't tell the role the host __postgres__ user has in the permissions of the
-data storage).
+    chmod 700 /whatever/data
 
-Modify access in the new data storage. In __postgresql.conf__, add universal
-access from any IP:
+    su postgres -c "initdb --encoding=UTF-8 --locale=es_ES.UTF-8
+    --lc-collate=es_ES.UTF-8 --lc-monetary=es_ES.UTF-8 --lc-numeric=es_ES.UTF-8
+    --lc-time=es_ES.UTF-8 -D /data"
+
+Modify access in the new data storage. In __pg_hba.conf__, add universal access
+from any IP:
 
     host    all             all             0.0.0.0/0               trust
 
@@ -73,7 +69,7 @@ data storage:
     geographica/postgresql-9.1.2-postgis-1.5.8
 
 in this case, __-i__ and __-t__ are used so the container and the database can
-be stoped with Ctl-C without __docker kill__ (I may be wrong, but I think this
+be stoped with Ctrl-C without __docker kill__ (I may be wrong, but I think this
 is a cleaner way to exit the container, since the data storage will be properly
 shut down).
 
@@ -87,4 +83,17 @@ way:
 The server can be accessed the usual way, at port 5455:
 
     psql -h localhost -p 5455 -U postgres postgres
+
+Also an interactive use of the image is possible, if you need for example access
+to psql because you don't have one installed in the host:
+
+    docker run -i -t --rm -v
+    /whatever/postgresql-9.1.2-postgis-1.5.8-data/:/data/ -p 5455:5432
+    geographica/postgresql-9.1.2-postgis-1.5.8 /bin/bash
+
+and start the server manually:
+
+    su postgres -c "pg_ctl -D /data start"
+
+Now you can use __psql__ inside the container.
 
