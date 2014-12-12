@@ -41,7 +41,7 @@ ADD packages/proj4-patch/nad/epsg /usr/local/src/proj-4.8.0/nad/
 ADD packages/proj4-patch/nad/PENR2009.gsb /usr/local/src/proj-4.8.0/nad/
 WORKDIR /usr/local/src/proj-4.8.0/
 RUN ["/bin/sh", "-c", "chown -R 142957:5000 /usr/local/src/proj-4.8.0/"]
-RUN ["./configure CC='gcc-4.7 -m64'"]
+RUN ./configure CC='gcc-4.7 -m64'
 RUN ["make"]
 RUN ["make", "install"]
 RUN ["ldconfig"]
