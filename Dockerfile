@@ -55,12 +55,12 @@ RUN make
 RUN make install
 
 # Postinstallation clean
-WORKDIR /
-RUN ["rm", "-Rf", "/usr/local/src"]
+WORKDIR /usr/local/
+RUN rm -Rf src
 
 # Configuration of database
-RUN ["locale-gen en_US.UTF-8"]
-RUN ["locale-gen es_ES.UTF-8"]
+RUN locale-gen en_US.UTF-8
+RUN locale-gen es_ES.UTF-8
 
 EXPOSE 5432
 CMD su postgres -c 'postgres -D /data'
