@@ -85,7 +85,7 @@ The server can be accessed the usual way, at port 5455:
     psql -h localhost -p 5455 -U postgres postgres
 
 Also an interactive use of the image is possible, if you need for example access
-to psql because you don't have one installed in the host:
+to __psql__ because you don't have one installed in the host:
 
     docker run -i -t --rm -v
     /whatever/postgresql-9.1.2-postgis-1.5.8-data/:/data/ -p 5455:5432
