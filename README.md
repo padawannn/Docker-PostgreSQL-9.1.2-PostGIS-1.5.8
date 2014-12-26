@@ -68,6 +68,16 @@ data storage:
     /whatever/postgresql-9.1.2-postgis-1.5.8-data:/data/ -p 5455:5432
     geographica/postgresql-9.1.2-postgis-1.5.8
 
+In the case of complex database deployment scripts that uses data in CSV files,
+for example, don't forget to make the containing folder available to the
+container, for the server in it has to be able to see the files, not just the
+local psql process. For example:
+
+    docker run -p 5454:5432 --name postgres-elcano -v
+    /home/malkab/postgresql-9.1.2-postgis-1.5.8-data/:/data/ -v
+    /home/git/Elcano-iepg/database/:/home/git/Elcano-iepg/database/ -i -t
+    geographica/postgresql-9.1.2-postgis-1.5.8
+
 in this case, __-i__ and __-t__ are used so the container and the database can
 be stoped with Ctrl-C without __docker kill__ (I may be wrong, but I think this
 is a cleaner way to exit the container, since the data storage will be properly
