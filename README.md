@@ -105,5 +105,9 @@ and start the server manually:
 
     su postgres -c "pg_ctl -D /data start"
 
-Now you can use __psql__ inside the container.
-
+Now you can use __psql__ inside the container. Keep in mind that interactive use
+is the only way of performing certain tasks, like for example running scripts
+that search for __.csv__ files in the filesystem for data restoration. Mount a
+volume to the directory containing the __.csv__ dumps and use __\copy__ in
+__psql__ scripts for improved portability, but those files must be local to the
+container.
