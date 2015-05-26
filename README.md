@@ -111,3 +111,14 @@ that search for __.csv__ files in the filesystem for data restoration. Mount a
 volume to the directory containing the __.csv__ dumps and use __\copy__ in
 __psql__ scripts for improved portability, but those files must be local to the
 container.
+
+How to compile PostGIS?
+-------------------------------------
+ - Create docker instace
+  	sudo docker run --rm -it --link pgsql:db geographica/postgresql-9.1.2-postgis-1.5.8:latest bash
+ 
+- Execute
+	psql -h db -d test -U postgres -f /usr/local/share/postgresql/contrib/postgis-1.5/postgis.sql
+	psql -h db -d test -U postgres -f /usr/local/share/postgresql/contrib/postgis-1.5/spatial_ref_sys.sql
+
+
